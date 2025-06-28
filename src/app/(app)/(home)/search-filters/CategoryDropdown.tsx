@@ -5,9 +5,11 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import useDropdownPosition from "./useDropdownPosition";
 import SubcategoryMenu from "./SubcategoryMenu";
+import { CustomCategory } from "../types";
+import Link from "next/link";
 
 interface Props {
-  category: Category;
+  category: CustomCategory;
   isActive?: boolean;
   isNavigationHovered?: boolean;
 }
@@ -23,15 +25,22 @@ function CategoryDropdown({ category, isActive, isNavigationHovered }: Props) {
     }
   };
 
-    const onMouseLeave = () => setIsOpen(false);
-    
-    const dropdownPosition = getDropdownPosition()
+  const onMouseLeave = () => setIsOpen(false);
+
+  const dropdownPosition = getDropdownPosition();
+
+  // const toggleDropDown = () => {
+  //   if (category.subcategories?.docs?.length) {
+  //     setIsOpen(!isOpen)
+  //   }
+  // }
   return (
     <div
       className="relative"
       ref={dropdownRef}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
+      // onClick={toggleDropDown}
     >
       <div className="relative">
         <Button
@@ -39,10 +48,13 @@ function CategoryDropdown({ category, isActive, isNavigationHovered }: Props) {
           className={cn(
             "h-11 px-4 bg-transparent border-transparent rounded-full hover:bg-white hover:border-primary text-black",
 
-            isActive && !isNavigationHovered && "bg-white border-primary"
+            isActive && !isNavigationHovered && "bg-white border-primary",
+            isOpen && "bg-white border-primary"
           )}
         >
-          {category.name}
+          <Link href={`/${category.slug === "all" ? "" : category.slug}`}>
+            {category.name}
+          </Link>
         </Button>
         {category.subcategories && category.subcategories.length > 0 && (
           <div
