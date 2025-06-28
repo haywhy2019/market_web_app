@@ -2,8 +2,10 @@ import { Category } from "@/payload-types";
 import { Backpack } from "lucide-react";
 import Link from "next/link";
 import React from "react";
+import { CustomCategory } from "../types";
+import { sub } from "date-fns";
 interface Props {
-  category: Category;
+  category: CustomCategory;
   isOpen: boolean;
   position: { top: number; left: number };
 }
@@ -33,7 +35,7 @@ function SubcategoryMenu({ category, isOpen, position }: Props) {
             {category.subcategories?.map((subcategory: Category) => (
               <Link
                 key={subcategory.slug}
-                href="/"
+                href={`${category.slug}/${subcategory.slug}`}
                 className="w-full text-left p-4 hover:bg-black hover:text-white flex justify-between items-center underline font-medium"
               >
                 {subcategory.name}

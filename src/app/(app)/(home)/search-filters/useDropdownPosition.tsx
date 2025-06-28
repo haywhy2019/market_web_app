@@ -10,8 +10,8 @@ function useDropdownPosition(
     const dropdownWidth = 240;
 
     let left = rect.left + window.scrollX;
-    // const top = rect.top + window.scrollY + rect.x;
-    const top = rect.bottom + window.screenY + 15;
+    // const top = rect.top + window.scrollY;
+    const top = rect.bottom + window.scrollY + 10;
 
     console.log(rect, window.screenY, window.scrollY);
 
