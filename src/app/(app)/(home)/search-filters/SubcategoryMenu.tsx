@@ -2,10 +2,10 @@ import { Category } from "@/payload-types";
 import { Backpack } from "lucide-react";
 import Link from "next/link";
 import React from "react";
-import { CustomCategory } from "../types";
 import { sub } from "date-fns";
+import { CategoriesGetManyOutput } from "@/modules/categories/server/types";
 interface Props {
-  category: CustomCategory;
+  category: CategoriesGetManyOutput[1 ];
   isOpen: boolean;
   position: { top: number; left: number };
 }
