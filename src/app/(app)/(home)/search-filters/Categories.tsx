@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import { ListFilterIcon } from "lucide-react";
 import CategoriesSidebar from "./CategoriesSidebar";
 import { CategoriesGetManyOutput } from "@/modules/categories/server/types";
-
+ 
 interface Props {
   data: CategoriesGetManyOutput;
 }
@@ -52,6 +52,7 @@ function Categories({ data }: Props) {
     return () => resizeObserver.disconnect();
   }, [data.length]);
 
+  console.log(data, "data")
   return (
     <div className="relative w-full">
       {/* Categories sidebar */}

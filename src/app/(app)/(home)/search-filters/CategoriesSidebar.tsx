@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+// import { CustomCategory } from "../types";
 import {
   Sheet,
   SheetContent,
@@ -10,9 +11,10 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useTRPC } from "@/trpc/client";
-import { useQuery } from "@tanstack/react-query";
 import { CategoriesGetManyOutput } from "@/modules/categories/server/types";
+import { CustomCategory } from "../types";
+import { useQuery } from "@tanstack/react-query";
+import { useTRPC } from "@/trpc/client";
 interface Props {
   open: boolean;
   onOpenChange: (ope: boolean) => void;
@@ -20,14 +22,13 @@ interface Props {
 
 function CategoriesSidebar({ open, onOpenChange }: Props) {
   const trpc = useTRPC();
-  const { data } = useQuery(trpc.categories.getMany.queryOptions());
-
+  const {data} = useQuery(trpc.categories.getMany.queryOptions());
   const router = useRouter();
-  const [parentCategory, setParentCategory] = useState<CategoriesGetManyOutput | null>(
-    null
-  );
-  const [selectedCategory, setSelectedCategory] =
-    useState<CategoriesGetManyOutput[1 ] | null>(null);
+  const [parentCategory, setParentCategory] =
+    useState<CategoriesGetManyOutput | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<
+    CategoriesGetManyOutput[1] | null
+  >(null);
 
   // if we have parent category show those otherwise show root category
   const currentCategories = parentCategory ?? data ?? [];
@@ -39,7 +40,7 @@ function CategoriesSidebar({ open, onOpenChange }: Props) {
   };
   const handleCategoryClick = (category: CategoriesGetManyOutput[1]) => {
     if (category.subcategories && category.subcategories.length > 0) {
-      setParentCategory(category.subcategories as CategoriesGetManyOutput );
+      setParentCategory(category.subcategories as unknown as CategoriesGetManyOutput);
       setSelectedCategory(category);
     } else {
       //this is a leaf category (no sub category)
