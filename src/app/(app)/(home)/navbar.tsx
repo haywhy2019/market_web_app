@@ -73,7 +73,7 @@ function Navbar() {
               variant={"secondary"}
               className="border-l border-t-0 border-r-0 px-12 h-full rounded-none bg-white hover:bg-pink-400 transition-colors text-large"
             >
-              <Link href={"/sign-in"}>Log in</Link>
+              <Link prefetch href={"/signIn"}>Log in</Link>
             </Button>
 
             <Button
@@ -82,7 +82,9 @@ function Navbar() {
                 "border-l border-t-0 border-r-0 px-12 h-full rounded-none  bg-pink-300 text-white hover:bg-pink-400 hover:text-black transition-colors text-large"
               }
             >
-              <Link href={"/sign-up"}>Start Selling</Link>
+              <Link prefetch href={"/signUp"}>
+                Start Selling
+              </Link>
             </Button>
           </div>
         </div>
