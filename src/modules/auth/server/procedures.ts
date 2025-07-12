@@ -1,10 +1,10 @@
 import { Category } from "@/payload-types";
 import { baseProcedure, createTRPCRouter } from "@/trpc/init";
 import { TRPCError } from "@trpc/server";
-import { headers as getHeaders, cookies as getCookies } from "next/headers";
+import { headers as getHeaders } from "next/headers";
 import { z } from "zod";
-import { AUTH_COOKIE } from "../constants";
 import { loginSchema, registerSchema } from "../schemas";
+import { generateAuthCookie } from "../utils";
 
 export const authRouter = createTRPCRouter({
   session: baseProcedure.query(async ({ ctx }) => {
@@ -13,10 +13,7 @@ export const authRouter = createTRPCRouter({
 
     return session;
   }),
-  logout: baseProcedure.mutation(async () => {
-    const cookies = await getCookies();
-    cookies.delete(AUTH_COOKIE);
-  }),
+  
   register: baseProcedure
     .input(registerSchema)
     .mutation(async ({ input, ctx }) => {
@@ -60,15 +57,11 @@ export const authRouter = createTRPCRouter({
           message: "Failed to login",
         });
       }
-
-      const cookies = await getCookies();
-      cookies.set({
-        name: AUTH_COOKIE,
+      await generateAuthCookie({
+        prefix: ctx.payload.config.cookiePrefix,
         value: data.token,
-        httpOnly: true,
-        path: "/",
-        //   sameSite: "none"
       });
+      // return data
     }),
   login: baseProcedure.input(loginSchema).mutation(async ({ input, ctx }) => {
     const data = await ctx.payload.login({
@@ -86,13 +79,9 @@ export const authRouter = createTRPCRouter({
       });
     }
 
-    const cookies = await getCookies();
-    cookies.set({
-      name: AUTH_COOKIE,
+    await generateAuthCookie({
+      prefix: ctx.payload.config.cookiePrefix,
       value: data.token,
-      httpOnly: true,
-      path: "/",
-      //   sameSite: "none"
     });
 
     return data;
