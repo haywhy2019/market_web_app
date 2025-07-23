@@ -6,11 +6,13 @@ import { cn } from "@/lib/utils";
 import { ListFilterIcon } from "lucide-react";
 import CategoriesSidebar from "./CategoriesSidebar";
 import { CategoriesGetManyOutput } from "@/modules/categories/server/types";
- 
+import { useParams } from "next/navigation";
+
 interface Props {
   data: CategoriesGetManyOutput;
 }
 function Categories({ data }: Props) {
+  const params = useParams();
   const containerRef = useRef<HTMLDivElement>(null);
   const measureRef = useRef<HTMLDivElement>(null);
   const viewAllRef = useRef<HTMLDivElement>(null);
@@ -19,7 +21,8 @@ function Categories({ data }: Props) {
   const [isAnyHovered, setIsAnyHovered] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  const activeCategory = "all";
+  const categoryParams = params.category as string | undefined;
+  const activeCategory = categoryParams || "all";
 
   const activeCategoryIndex = data.findIndex(
     (cat) => cat.slug === activeCategory
@@ -52,7 +55,7 @@ function Categories({ data }: Props) {
     return () => resizeObserver.disconnect();
   }, [data.length]);
 
-  console.log(data, "data")
+
   return (
     <div className="relative w-full">
       {/* Categories sidebar */}
