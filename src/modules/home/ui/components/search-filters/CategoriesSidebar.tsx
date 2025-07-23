@@ -12,7 +12,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { CategoriesGetManyOutput } from "@/modules/categories/server/types";
-import { CustomCategory } from "../types";
+import { CustomCategory } from "../../../../../app/(app)/(home)/types";
 import { useQuery } from "@tanstack/react-query";
 import { useTRPC } from "@/trpc/client";
 interface Props {
@@ -22,7 +22,7 @@ interface Props {
 
 function CategoriesSidebar({ open, onOpenChange }: Props) {
   const trpc = useTRPC();
-  const {data} = useQuery(trpc.categories.getMany.queryOptions());
+  const { data } = useQuery(trpc.categories.getMany.queryOptions());
   const router = useRouter();
   const [parentCategory, setParentCategory] =
     useState<CategoriesGetManyOutput | null>(null);
@@ -40,7 +40,9 @@ function CategoriesSidebar({ open, onOpenChange }: Props) {
   };
   const handleCategoryClick = (category: CategoriesGetManyOutput[1]) => {
     if (category.subcategories && category.subcategories.length > 0) {
-      setParentCategory(category.subcategories as unknown as CategoriesGetManyOutput);
+      setParentCategory(
+        category.subcategories as unknown as CategoriesGetManyOutput
+      );
       setSelectedCategory(category);
     } else {
       //this is a leaf category (no sub category)

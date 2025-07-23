@@ -5,10 +5,11 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { usePathname } from "next/navigation";
-import NavbarSidebar from "./navbar-sidebar";
+
 import { MenuIcon } from "lucide-react";
 import { useTRPC } from "@/trpc/client";
 import { useQuery } from "@tanstack/react-query";
+import NavbarSidebar from "@/modules/home/ui/components/navbar-sidebar";
 
 const poppings = Poppins({
   subsets: ["latin"],
