@@ -71,7 +71,7 @@ function Categories({ data }: Props) {
             <CategoryDropdown
               category={category}
               isActive={activeCategory === category.slug}
-              isNavigationHovered={false}
+              isNavigationHovered={isAnyHovered}
             />
           </div>
         ))}
