@@ -20,7 +20,6 @@ function SubcategoryMenu({ category, isOpen, position }: Props) {
 
   const backgroundColor = category.color || "#FFFFFF";
 
-  console.log({ backgroundColor }, "test");
   return (
     <div
       className="fixed z-100"

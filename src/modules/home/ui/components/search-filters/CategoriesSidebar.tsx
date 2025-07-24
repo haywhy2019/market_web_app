@@ -48,6 +48,7 @@ function CategoriesSidebar({ open, onOpenChange }: Props) {
       //this is a leaf category (no sub category)
       if (parentCategory && selectedCategory) {
         // this is a subcategory - navigate to /category/subcategory
+        console.log("clicked--");
         router.push(`/${selectedCategory.slug}/${category.slug}`);
       } else {
         // this is a main category - navigate to /category
