@@ -4,8 +4,9 @@ import Link from "next/link";
 import React from "react";
 import { sub } from "date-fns";
 import { CategoriesGetManyOutput } from "@/modules/categories/server/types";
+import { Categories } from "@/collections/Categories";
 interface Props {
-  category: CategoriesGetManyOutput[1 ];
+  category: CategoriesGetManyOutput[1];
   isOpen: boolean;
   position: { top: number; left: number };
 }
@@ -31,15 +32,18 @@ function SubcategoryMenu({ category, isOpen, position }: Props) {
           className="w-60 text-black rounded-md overflow-hidden border shadow-[4px_4px_0px_0px_rgba(0,0,0,0)] -translate-x-[2px] -translate-y-[2px] "
         >
           <div>
-            {category.subcategories?.map((subcategory: Category) => (
-              <Link
-                key={subcategory.slug}
-                href={`${category.slug}/${subcategory.slug}`}
-                className="w-full text-left p-4 hover:bg-black hover:text-white flex justify-between items-center underline font-medium"
-              >
-                {subcategory.name}
-              </Link>
-            ))}
+            {category.subcategories?.map((subcategory: Category) => {
+              console.log(`${category.slug}/${subcategory.slug}`);
+              return (
+                <Link
+                  key={subcategory.slug}
+                  href={`/${category.slug}/${subcategory.slug}`}
+                  className="w-full text-left p-4 hover:bg-black hover:text-white flex justify-between items-center underline font-medium"
+                >
+                  {subcategory.name}
+                </Link>
+              );
+            })}
           </div>
         </div>
       </div>
