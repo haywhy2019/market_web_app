@@ -23,7 +23,7 @@ export const productsRouter = createTRPCRouter({
         where.price = {
           greater_than_equal: input.minPrice,
         };
-      } else {
+      } else if (input.maxPrice) {
         where.price = {
           less_than_equal: input.maxPrice,
         };
